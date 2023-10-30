@@ -1,0 +1,118 @@
+# @file      Kconfig
+# @brief     cryptoauthlib module Kconfig file
+#
+# MIT License
+#
+# Copyright (c) 2022-2023 joelguittet and mender-mcu-client contributors
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+menuconfig CRYPTOAUTHLIB
+    bool "Library for interacting with the Crypto Authentication secure elements"
+    help
+        This library implements the APIs required to communicate with Microchip
+        Security device. The family of devices supported currently are: ATSHA204A,
+        ATECC108A, ATECC508A, ATECC608A and ATECC608B.
+
+if CRYPTOAUTHLIB
+
+    # HAL selection
+    choice CRYPTOAUTHLIB_HAL_TYPE_CHOICE
+        prompt "HAL type"
+        help
+            Select the HAL type to compile
+
+        config CRYPTOAUTHLIB_HAL_I2C
+            bool "HAL I2C"
+            select I2C
+
+        config CRYPTOAUTHLIB_HAL_SPI
+            bool "HAL SPI"
+            select SPI
+
+    endchoice # CRYPTOAUTHLIB_HAL_TYPE_CHOICE
+
+    # Library Options
+    config CRYPTOAUTHLIB_PRINTF
+        bool "Enable Debug print statements in library"
+        default n
+
+    config CRYPTOAUTHLIB_JWT_SUPPORT
+        bool "Enable jwt functionality"
+        default n
+
+    config CRYPTOAUTHLIB_NO_POLL
+        bool "Do not use polling to get device responses"
+        default n
+
+    config CRYPTOAUTHLIB_NO_HEAP
+        bool "Do not use dynamic (heap) allocation functions"
+        default n
+
+    config CRYPTOAUTHLIB_USE_ATCAB_FUNCTIONS
+        bool "Build the atcab_ api functions rather than using macros"
+        default n
+
+    config CRYPTOAUTHLIB_STRICT_C99
+        bool "Enable strict C99 compliance for the libray"
+        default n
+
+    # Device enablement
+    config CRYPTOAUTHLIB_ATSHA204A_SUPPORT
+        bool "Include support for ATSHA204A device"
+        default y
+
+    config CRYPTOAUTHLIB_ATSHA206A_SUPPORT
+        bool "Include support for ATSHA206A device"
+        default y
+
+    config CRYPTOAUTHLIB_ATECC108A_SUPPORT
+        bool "Include support for ATECC108A device"
+        default y
+
+    config CRYPTOAUTHLIB_ATECC508A_SUPPORT
+        bool "Include support for ATECC508A device"
+        default y
+
+    config CRYPTOAUTHLIB_ATECC608_SUPPORT
+        bool "Include support for ATECC608 device"
+        default y
+
+    config CRYPTOAUTHLIB_ATECC608A_SUPPORT
+        bool "Include support for ATECC608A device"
+        select CRYPTOAUTHLIB_ATECC608_SUPPORT
+        default n
+
+    config CRYPTOAUTHLIB_ECC204_SUPPORT
+        bool "Include support for ECC204 device"
+        default y
+
+    config CRYPTOAUTHLIB_TA010_SUPPORT
+        bool "Include support for TA010 device"
+        default y
+
+    config CRYPTOAUTHLIB_SHA104_SUPPORT
+        bool "Include support for SHA104 device"
+        default y
+
+    config CRYPTOAUTHLIB_SHA105_SUPPORT
+        bool "Include support for SHA105 device"
+        default y
+
+endif

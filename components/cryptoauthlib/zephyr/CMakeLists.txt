@@ -1,0 +1,169 @@
+# @file      CMakeLists.txt
+# @brief     cryptoauthlib module CMakeLists file
+#
+# MIT License
+#
+# Copyright (c) 2022-2023 joelguittet and mender-mcu-client contributors
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+include(CheckSymbolExists)
+
+if(CONFIG_CRYPTOAUTHLIB)
+
+    if (CONFIG_CRYPTOAUTHLIB_HAL_I2C)
+        set(ATCA_HAL_I2C ON CACHE INTERNAL "")
+    else()
+        set(ATCA_HAL_I2C OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_HAL_SPI)
+        set(ATCA_HAL_SPI ON CACHE INTERNAL "")
+    else()
+        set(ATCA_HAL_SPI OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_PRINTF)
+        set(ATCA_PRINTF ON CACHE INTERNAL "")
+    else()
+        set(ATCA_PRINTF OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_JWT_SUPPORT)
+        set(ATCA_JWT_EN ON CACHE INTERNAL "")
+    else()
+        set(ATCA_JWT_EN OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_NO_POLL)
+        set(ATCA_NO_POLL ON CACHE INTERNAL "")
+    else()
+        set(ATCA_NO_POLL OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_NO_HEAP)
+        set(ATCA_NO_HEAP ON CACHE INTERNAL "")
+    else()
+        set(ATCA_NO_HEAP OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_USE_ATCAB_FUNCTIONS)
+        set(ATCA_USE_ATCAB_FUNCTIONS ON CACHE INTERNAL "")
+    else()
+        set(ATCA_USE_ATCAB_FUNCTIONS OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_STRICT_C99)
+        set(ATCA_STRICT_C99 ON CACHE INTERNAL "")
+    else()
+        set(ATCA_STRICT_C99 OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ATSHA204A_SUPPORT)
+        set(ATCA_ATSHA204A_SUPPORT ON CACHE INTERNAL "")
+     else()
+        set(ATCA_ATSHA204A_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ATSHA206A_SUPPORT)
+        set(ATCA_ATSHA206A_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_ATSHA206A_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ATECC108A_SUPPORT)
+        set(ATCA_ATECC108A_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_ATECC108A_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ATECC508A_SUPPORT)
+        set(ATCA_ATECC508A_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_ATECC508A_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ATECC608_SUPPORT)
+        set(ATCA_ATECC608_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_ATECC608_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ATECC608A_SUPPORT)
+        set(ATCA_ATECC608A_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_ATECC608A_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_ECC204_SUPPORT)
+        set(ATCA_ECC204_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_ECC204_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_TA010_SUPPORT)
+        set(ATCA_TA010_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_TA010_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_SHA104_SUPPORT)
+        set(ATCA_SHA104_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_SHA104_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    if (CONFIG_CRYPTOAUTHLIB_SHA105_SUPPORT)
+        set(ATCA_SHA105_SUPPORT ON CACHE INTERNAL "")
+    else()
+        set(ATCA_SHA105_SUPPORT OFF CACHE INTERNAL "")
+    endif()
+    set(MAX_PACKET_SIZE 1072 CACHE INTERNAL "")
+    check_symbol_exists(malloc "stdlib.h" HAS_MALLOC)
+    check_symbol_exists(free "stdlib.h" HAS_FREE)
+    check_symbol_exists(strcasestr "string.h" HAS_STRCASESTR)
+    check_symbol_exists(memset_s "string.h" HAS_MEMSET_S)
+    if(HAS_MALLOC)
+        set(ATCA_PLATFORM_MALLOC malloc CACHE STRING "" FORCE)
+    else()
+        unset(ATCA_PLATFORM_MALLOC)
+    endif(HAS_MALLOC)
+    if(HAS_FREE)
+        set(ATCA_PLATFORM_FREE free CACHE STRING "" FORCE)
+    else()
+        unset(ATCA_PLATFORM_FREE)
+    endif(HAS_FREE)
+    if(HAS_STRCASESTR)
+        set(ATCA_PLATFORM_STRCASESTR strcasestr CACHE STRING "" FORCE)
+    else()
+        unset(ATCA_PLATFORM_STRCASESTR)
+    endif(HAS_STRCASESTR)
+    if(HAS_MEMSET_S)
+        set(ATCA_PLATFORM_MEMSET_S memset_s CACHE STRING "" FORCE)
+    else()
+        unset(ATCA_PLATFORM_MEMSET_S)
+    endif(HAS_MEMSET_S)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/atca_config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/atca_config.h")
+
+    file(GLOB LIB_SRC "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/*.c")
+    file(GLOB CALIB_SRC "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/calib/*.c")
+    file(GLOB CRYPTO_SRC "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/crypto/*.c")
+    file(GLOB CRYPTO_HASHES_SRC "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/crypto/hashes/*.c")
+
+    zephyr_include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
+    zephyr_include_directories("${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib")
+    zephyr_include_directories("${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/calib")
+    zephyr_include_directories("${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/crypto")
+    zephyr_include_directories("${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/crypto/hashes")
+    zephyr_library()
+    zephyr_library_sources(
+        "${LIB_SRC}"
+        "${CALIB_SRC}"
+        "${CRYPTO_SRC}"
+        "${CRYPTO_HASHES_SRC}"
+        "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/lib/hal/atca_hal.c"
+        "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/third_party/hal/zephyr/hal_zephyr.c"
+    )
+    zephyr_library_sources_ifdef(CONFIG_CRYPTOAUTHLIB_HAL_I2C "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/third_party/hal/zephyr/hal_zephyr_i2c.c")
+    zephyr_library_sources_ifdef(CONFIG_CRYPTOAUTHLIB_HAL_SPI "${CMAKE_CURRENT_LIST_DIR}/../cryptoauthlib/third_party/hal/zephyr/hal_zephyr_spi.c")
+
+endif()

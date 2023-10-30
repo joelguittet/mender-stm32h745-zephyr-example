@@ -1,0 +1,55 @@
+/**
+ * @file      nucleo_h745zi_q_m7_flash0.dtsi
+ * @brief     Nucleo STM32H745 flash0 overlay include
+ *
+ * MIT License
+ *
+ * Copyright (c) 2022-2023 joelguittet and mender-mcu-client contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+&flash0 {
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
+        /* Bootloader slot: 128KB */
+        boot_partition: partition@0 {
+            label = "mcuboot";
+            reg = <0x00000000 DT_SIZE_K(128)>;
+            read-only;
+        };
+        /* Application slot: 384KB */
+        slot0_partition: partition@20000 {
+            label = "image-0";
+            reg = <0x00020000 DT_SIZE_K(384)>;
+        };
+        /* Update slot: 384KB */
+        slot1_partition: partition@80000 {
+            label = "image-1";
+            reg = <0x00080000 DT_SIZE_K(384)>;
+        };
+        /* Scratch slot: 128KB */
+        scratch_partition: partition@e0000 {
+            label = "image-scratch";
+            reg = <0x000E0000 DT_SIZE_K(128)>;
+        };
+    };
+};
