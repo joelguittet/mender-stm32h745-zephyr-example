@@ -47,7 +47,7 @@ project(mender-stm32h745-zephyr-example)
 target_sources(app PRIVATE "src/main.c" "src/mender-storage.c")
 
 # Definitions
-target_compile_definitions(app PRIVATE PROJECT_NAME="mender-stm32h745-zephyr-example")
+target_compile_definitions(app PRIVATE -D_POSIX_C_SOURCE=200809L PROJECT_NAME="mender-stm32h745-zephyr-example")
 
 # Generate Root CA include file
 generate_inc_file_for_target(app "src/AmazonRootCA1.cer" "${ZEPHYR_BINARY_DIR}/include/generated/AmazonRootCA1.cer.inc")
