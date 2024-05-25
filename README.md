@@ -206,7 +206,7 @@ NVS module from Zephyr requires sectors to be 64KB or less in size, which is not
 
 In the current example, authentication keys are not saved in the mender storage area because they are managed by the ATECC608 secure element. Instead, only ID and artifact name are used when an update is done, and device configuration if it is defined.
 
-Implementation has been done using the backup sram available in the STM32H745ZI MCU. Because this is sepcific and not supported by the mender-mcu-client, `CONFIG_MENDER_PLATFORM_STORAGE_TYPE_WEAK` has been defined and project specific implementation has been done. See `src/mender-storage.c` for more information.
+Implementation has been done using the backup sram available in the STM32H745ZI MCU. Because this is specific and not supported by the mender-mcu-client, `CONFIG_MENDER_PLATFORM_STORAGE_TYPE_WEAK` has been defined and project specific implementation has been done. See `src/mender-storage.c` for more information.
 
 ### Using Microchip cryptoauthlib
 
@@ -214,7 +214,7 @@ The ATECC608 is used within the Microchip cryptoauthlib library. It is supposed 
 
 I have personally used the [esp_cryptoauth_utility](https://github.com/espressif/esp-cryptoauthlib/tree/master/esp_cryptoauth_utility) to provisioned the device.
 
-Finally note that a fork of the official Microchip cryptoauthlib is used to have up to date Zephyr integration. This is done until the following Pull Requests to the original repositoy are pending:
+Finally note that a fork of the official Microchip cryptoauthlib is used to have up to date Zephyr integration. This is done until the following Pull Requests to the original repository are pending:
 - https://github.com/MicrochipTech/cryptoauthlib/pull/354
 - https://github.com/MicrochipTech/cryptoauthlib/pull/355
 
