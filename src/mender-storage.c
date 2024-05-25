@@ -40,8 +40,8 @@
 /**
  * @brief ID and artifact name length
  */
-#define MENDER_STORAGE_OTA_ID_LENGTH            (64)
-#define MENDER_STORAGE_OTA_ARTIFACT_NAME_LENGTH (64)
+#define MENDER_STORAGE_DEPLOYMENT_ID_LENGTH            (64)
+#define MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH (64)
 
 /**
  * @brief Device configuration length
@@ -49,10 +49,10 @@
 #define MENDER_STORAGE_DEVICE_CONFIG_LENGTH (512)
 
 /**
- * @brief ID and artifact name in SRAM
+ * @brief Deployment ID and artifact name in SRAM
  */
-__stm32_backup_sram_section char mender_storage_ota_id[MENDER_STORAGE_OTA_ID_LENGTH];
-__stm32_backup_sram_section char mender_storage_ota_artifact_name[MENDER_STORAGE_OTA_ARTIFACT_NAME_LENGTH];
+__stm32_backup_sram_section char mender_storage_deployment_id[MENDER_STORAGE_DEPLOYMENT_ID_LENGTH];
+__stm32_backup_sram_section char mender_storage_deployment_artifact_name[MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH];
 
 /**
  * @brief Device configuration in SRAM
@@ -72,61 +72,61 @@ mender_storage_init(void) {
 }
 
 mender_err_t
-mender_storage_set_ota_deployment(char *ota_id, char *ota_artifact_name) {
+mender_storage_set_deployment(char *id, char *artifact_name) {
 
-    assert(NULL != ota_id);
-    assert(NULL != ota_artifact_name);
+    assert(NULL != id);
+    assert(NULL != artifact_name);
 
-    /* Retrieve length of the ID and artifact name */
-    size_t ota_id_length = strlen(ota_id);
-    if (ota_id_length >= MENDER_STORAGE_OTA_ID_LENGTH) {
-        mender_log_error("Unable to set OTA ID");
+    /* Retrieve length of the deployment ID and artifact name */
+    size_t id_length = strlen(id);
+    if (id_length >= MENDER_STORAGE_DEPLOYMENT_ID_LENGTH) {
+        mender_log_error("Unable to set deployment ID");
         return MENDER_FAIL;
     }
-    size_t ota_artifact_name_length = strlen(ota_artifact_name);
-    if (ota_artifact_name_length >= MENDER_STORAGE_OTA_ARTIFACT_NAME_LENGTH) {
-        mender_log_error("Unable to set OTA artifact name");
+    size_t artifact_name_length = strlen(artifact_name);
+    if (artifact_name_length >= MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH) {
+        mender_log_error("Unable to set deployment artifact name");
         return MENDER_FAIL;
     }
 
     /* Copy ID and artifact name */
-    memcpy(mender_storage_ota_id, ota_id, ota_id_length + 1);
-    memcpy(mender_storage_ota_artifact_name, ota_artifact_name, ota_artifact_name_length + 1);
+    memcpy(mender_storage_deployment_id, id, id_length + 1);
+    memcpy(mender_storage_deployment_artifact_name, artifact_name, artifact_name_length + 1);
 
 #if __DCACHE_PRESENT
     /* Force cleaning the cache */
-    SCB_CleanDCache_by_Addr(mender_storage_ota_id, MENDER_STORAGE_OTA_ID_LENGTH);
-    SCB_CleanDCache_by_Addr(mender_storage_ota_artifact_name, MENDER_STORAGE_OTA_ARTIFACT_NAME_LENGTH);
+    SCB_CleanDCache_by_Addr(mender_storage_deployment_id, MENDER_STORAGE_DEPLOYMENT_ID_LENGTH);
+    SCB_CleanDCache_by_Addr(mender_storage_deployment_artifact_name, MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH);
 #endif
 
     return MENDER_OK;
 }
 
 mender_err_t
-mender_storage_get_ota_deployment(char **ota_id, char **ota_artifact_name) {
+mender_storage_get_deployment(char **id, char **artifact_name) {
 
-    assert(NULL != ota_id);
-    assert(NULL != ota_artifact_name);
+    assert(NULL != id);
+    assert(NULL != artifact_name);
 
     /* Retrieve length of the ID and artifact name */
-    if (0 == strlen(mender_storage_ota_id)) {
-        mender_log_info("OTA ID not available");
+    if (0 == strlen(mender_storage_deployment_id)) {
+        mender_log_info("Deployment ID not available");
         return MENDER_NOT_FOUND;
     }
-    if (0 == strlen(mender_storage_ota_artifact_name)) {
+    if (0 == strlen(mender_storage_deployment_artifact_name)) {
         mender_log_info("Artifact name not available");
         return MENDER_NOT_FOUND;
     }
 
     /* Read ID and artifact name */
-    if (NULL == (*ota_id = strdup(mender_storage_ota_id))) {
-        mender_log_error("Unable to read OTA ID");
+    if (NULL == (*id = strdup(mender_storage_deployment_id))) {
+        mender_log_error("Unable to read deployment ID");
         return MENDER_FAIL;
     }
-    if (NULL == (*ota_artifact_name = strdup(mender_storage_ota_artifact_name))) {
-        mender_log_error("Unable to read artifact name");
-        free(*ota_id);
-        *ota_id = NULL;
+    if (NULL == (*artifact_name = strdup(mender_storage_deployment_artifact_name))) {
+        mender_log_error("Unable to read deployment artifact name");
+        free(*id);
+        *id = NULL;
         return MENDER_FAIL;
     }
 
@@ -134,11 +134,11 @@ mender_storage_get_ota_deployment(char **ota_id, char **ota_artifact_name) {
 }
 
 mender_err_t
-mender_storage_delete_ota_deployment(void) {
+mender_storage_delete_deployment(void) {
 
-    /* Reset ID and artifact name */
-    memset(mender_storage_ota_id, 0, MENDER_STORAGE_OTA_ID_LENGTH);
-    memset(mender_storage_ota_artifact_name, 0, MENDER_STORAGE_OTA_ARTIFACT_NAME_LENGTH);
+    /* Reset deployment ID and artifact name */
+    memset(mender_storage_deployment_id, 0, MENDER_STORAGE_DEPLOYMENT_ID_LENGTH);
+    memset(mender_storage_deployment_artifact_name, 0, MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH);
 
     return MENDER_OK;
 }
