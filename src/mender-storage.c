@@ -38,10 +38,9 @@
 #endif
 
 /**
- * @brief ID and artifact name length
+ * @brief Deployment data length
  */
-#define MENDER_STORAGE_DEPLOYMENT_ID_LENGTH            (64)
-#define MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH (64)
+#define MENDER_STORAGE_DEPLOYMENT_DATA_LENGTH (192)
 
 /**
  * @brief Device configuration length
@@ -49,10 +48,9 @@
 #define MENDER_STORAGE_DEVICE_CONFIG_LENGTH (512)
 
 /**
- * @brief Deployment ID and artifact name in SRAM
+ * @brief Deployment data in SRAM
  */
-__stm32_backup_sram_section char mender_storage_deployment_id[MENDER_STORAGE_DEPLOYMENT_ID_LENGTH];
-__stm32_backup_sram_section char mender_storage_deployment_artifact_name[MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH];
+__stm32_backup_sram_section char mender_storage_deployment_data[MENDER_STORAGE_DEPLOYMENT_DATA_LENGTH];
 
 /**
  * @brief Device configuration in SRAM
@@ -72,61 +70,42 @@ mender_storage_init(void) {
 }
 
 mender_err_t
-mender_storage_set_deployment(char *id, char *artifact_name) {
+mender_storage_set_deployment_data(char *deployment_data) {
 
-    assert(NULL != id);
-    assert(NULL != artifact_name);
+    assert(NULL != deployment_data);
 
-    /* Retrieve length of the deployment ID and artifact name */
-    size_t id_length = strlen(id);
-    if (id_length >= MENDER_STORAGE_DEPLOYMENT_ID_LENGTH) {
-        mender_log_error("Unable to set deployment ID");
-        return MENDER_FAIL;
-    }
-    size_t artifact_name_length = strlen(artifact_name);
-    if (artifact_name_length >= MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH) {
-        mender_log_error("Unable to set deployment artifact name");
+    /* Retrieve length of the deployment data */
+    size_t deployment_data_length = strlen(deployment_data);
+    if (deployment_data_length >= MENDER_STORAGE_DEPLOYMENT_DATA_LENGTH) {
+        mender_log_error("Unable to set deployment data");
         return MENDER_FAIL;
     }
 
-    /* Copy ID and artifact name */
-    memcpy(mender_storage_deployment_id, id, id_length + 1);
-    memcpy(mender_storage_deployment_artifact_name, artifact_name, artifact_name_length + 1);
+    /* Copy deployment data */
+    memcpy(mender_storage_deployment_data, deployment_data, deployment_data_length + 1);
 
 #if __DCACHE_PRESENT
     /* Force cleaning the cache */
-    SCB_CleanDCache_by_Addr(mender_storage_deployment_id, MENDER_STORAGE_DEPLOYMENT_ID_LENGTH);
-    SCB_CleanDCache_by_Addr(mender_storage_deployment_artifact_name, MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH);
+    SCB_CleanDCache_by_Addr(mender_storage_deployment_data, MENDER_STORAGE_DEPLOYMENT_DATA_LENGTH);
 #endif
 
     return MENDER_OK;
 }
 
 mender_err_t
-mender_storage_get_deployment(char **id, char **artifact_name) {
+mender_storage_get_deployment_data(char **deployment_data) {
 
-    assert(NULL != id);
-    assert(NULL != artifact_name);
+    assert(NULL != deployment_data);
 
-    /* Retrieve length of the ID and artifact name */
-    if (0 == strlen(mender_storage_deployment_id)) {
-        mender_log_info("Deployment ID not available");
-        return MENDER_NOT_FOUND;
-    }
-    if (0 == strlen(mender_storage_deployment_artifact_name)) {
-        mender_log_info("Artifact name not available");
+    /* Retrieve length of the deployment data */
+    if (0 == strlen(mender_storage_deployment_data)) {
+        mender_log_info("Deployment data not available");
         return MENDER_NOT_FOUND;
     }
 
-    /* Read ID and artifact name */
-    if (NULL == (*id = strdup(mender_storage_deployment_id))) {
-        mender_log_error("Unable to read deployment ID");
-        return MENDER_FAIL;
-    }
-    if (NULL == (*artifact_name = strdup(mender_storage_deployment_artifact_name))) {
-        mender_log_error("Unable to read deployment artifact name");
-        free(*id);
-        *id = NULL;
+    /* Read deployment data */
+    if (NULL == (*deployment_data = strdup(mender_storage_deployment_data))) {
+        mender_log_error("Unable to read deployment data");
         return MENDER_FAIL;
     }
 
@@ -134,11 +113,10 @@ mender_storage_get_deployment(char **id, char **artifact_name) {
 }
 
 mender_err_t
-mender_storage_delete_deployment(void) {
+mender_storage_delete_deployment_data(void) {
 
-    /* Reset deployment ID and artifact name */
-    memset(mender_storage_deployment_id, 0, MENDER_STORAGE_DEPLOYMENT_ID_LENGTH);
-    memset(mender_storage_deployment_artifact_name, 0, MENDER_STORAGE_DEPLOYMENT_ARTIFACT_NAME_LENGTH);
+    /* Reset deployment data */
+    memset(mender_storage_deployment_data, 0, MENDER_STORAGE_DEPLOYMENT_DATA_LENGTH);
 
     return MENDER_OK;
 }
