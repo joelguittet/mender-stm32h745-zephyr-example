@@ -59,14 +59,14 @@ The application relies on mcuboot and requires to build a signed binary file to 
 Use the following commands to build and flash mcuboot (please adapt the paths to your own installation):
 
 ```
-west build -s $HOME/zephyrproject/bootloader/mcuboot/boot/zephyr -d build-mcuboot -b nucleo_h745zi_q_m7 -- -DDTC_OVERLAY_FILE=path/to/mender-stm32h745-zephyr-example/nucleo_h745zi_q_m7_mcuboot.overlay -DCONFIG_BOOT_SWAP_USING_SCRATCH=y -DCONFIG_BOOT_MAX_IMG_SECTORS=3
+west build -s $HOME/zephyrproject/bootloader/mcuboot/boot/zephyr -d build-mcuboot -b nucleo_h745zi_q/stm32h745xx/m7 -- -DDTC_OVERLAY_FILE=path/to/mender-stm32h745-zephyr-example/nucleo_h745zi_q_m7_mcuboot.overlay -DCONFIG_BOOT_SWAP_USING_SCRATCH=y -DCONFIG_BOOT_MAX_IMG_SECTORS=3
 west flash -d build-mcuboot
 ```
 
 Use the following command to build, sign and flash the application (please adapt the paths to your own installation):
 
 ```
-west build -b nucleo_h745zi_q_m7 path/to/mender-stm32h745-zephyr-example
+west build -b nucleo_h745zi_q/stm32h745xx/m7 path/to/mender-stm32h745-zephyr-example
 west sign -t imgtool -- --version $(head -n1 path/to/mender-stm32h745-zephyr-example/VERSION.txt) --pad --key $HOME/zephyrproject/bootloader/mcuboot/root-rsa-2048.pem
 west flash --hex-file build/zephyr/zephyr.signed.hex
 ```
@@ -124,7 +124,7 @@ First retrieve [mender-artifact](https://docs.mender.io/downloads#mender-artifac
 Change `VERSION.txt` file to `0.2`, rebuild and sign the firmware using the following commands. We previously used `hex` file because it is required to flash the device, but we now use `bin` file that is required for the mender-mcu-client:
 
 ```
-west build -b nucleo_h745zi_q_m7 path/to/mender-stm32h745-zephyr-example
+west build -b nucleo_h745zi_q/stm32h745xx/m7 path/to/mender-stm32h745-zephyr-example
 west sign -t imgtool -- --version $(head -n1 path/to/mender-stm32h745-zephyr-example/VERSION.txt) --pad --key $HOME/zephyrproject/bootloader/mcuboot/root-rsa-2048.pem
 ```
 
