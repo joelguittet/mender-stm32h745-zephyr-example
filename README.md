@@ -67,7 +67,6 @@ Use the following command to build, sign and flash the application (please adapt
 
 ```
 west build -b nucleo_h745zi_q/stm32h745xx/m7 path/to/mender-stm32h745-zephyr-example
-west sign -t imgtool -- --version $(head -n1 path/to/mender-stm32h745-zephyr-example/VERSION.txt) --pad --key $HOME/zephyrproject/bootloader/mcuboot/root-rsa-2048.pem
 west flash --hex-file build/zephyr/zephyr.signed.hex
 ```
 
@@ -125,7 +124,6 @@ Change `VERSION.txt` file to `0.2`, rebuild and sign the firmware using the foll
 
 ```
 west build -b nucleo_h745zi_q/stm32h745xx/m7 path/to/mender-stm32h745-zephyr-example
-west sign -t imgtool -- --version $(head -n1 path/to/mender-stm32h745-zephyr-example/VERSION.txt) --pad --key $HOME/zephyrproject/bootloader/mcuboot/root-rsa-2048.pem
 ```
 
 Then create a new artifact using the following command line:
