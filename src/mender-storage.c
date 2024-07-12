@@ -82,7 +82,8 @@ mender_storage_set_deployment_data(char *deployment_data) {
     }
 
     /* Copy deployment data */
-    memcpy(mender_storage_deployment_data, deployment_data, deployment_data_length + 1);
+    memcpy(mender_storage_deployment_data, deployment_data, deployment_data_length);
+    memset(&mender_storage_deployment_data[deployment_data_length], '\0', MENDER_STORAGE_DEPLOYMENT_DATA_LENGTH - deployment_data_length);
 
 #if __DCACHE_PRESENT
     /* Force cleaning the cache */
@@ -137,7 +138,8 @@ mender_storage_set_device_config(char *device_config) {
     }
 
     /* Copy device configuration */
-    memcpy(mender_storage_device_config, device_config, device_config_length + 1);
+    memcpy(mender_storage_device_config, device_config, device_config_length);
+    memset(&mender_storage_device_config[device_config_length], '\0', MENDER_STORAGE_DEVICE_CONFIG_LENGTH - device_config_length);
 
 #if __DCACHE_PRESENT
     /* Force cleaning the cache */
