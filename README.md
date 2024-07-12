@@ -75,43 +75,53 @@ west flash --hex-file build/zephyr/zephyr.signed.hex
 After flashing the application on the NUCLEO-H745ZI-Q evaluation board and displaying logs, press RESET button on the evaluation board (the target is halted by default) and you should be able to see the following:
 
 ```
-*** Booting Zephyr OS build zephyr-v3.4.0 ***
+*** Booting MCUboot v2.1.0-rc1-36-gfb2cf0ec3da3 ***
+*** Using Zephyr OS build v3.7.0-rc2-417-g1e20f58c17c1 ***
 I: Starting bootloader
-I: Primary image: magic=good, swap_type=0x1, copy_done=0x3, image_ok=0x3
-I: Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+I: Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+I: Scratch: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
 I: Boot source: primary slot
 I: Image index: 0, Swap type: none
 I: Bootloader chainload address offset: 0x20000
 I: Jumping to the first image slot
 
 
-*** Booting Zephyr OS build zephyr-v3.4.0 ***
-[00:00:02.003,000] <inf> mender_stm32h745_zephyr_example: Your address: 192.168.1.183
-[00:00:02.014,000] <inf> mender_stm32h745_zephyr_example: Lease time: 43200 seconds
-[00:00:02.024,000] <inf> mender_stm32h745_zephyr_example: Subnet: 255.255.255.0
-[00:00:02.034,000] <inf> mender_stm32h745_zephyr_example: Router: 192.168.1.1
-[00:00:02.048,000] <inf> mender_stm32h745_zephyr_example: MAC address of the device '00:80:e1:7c:10:70'
-[00:00:02.060,000] <inf> mender_stm32h745_zephyr_example: Running project 'mender-stm32h745-zephyr-example' version '0.1'
-[00:00:02.077,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (82): Secure element revision information: '00006002'
-[00:00:02.096,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (84): Secure element is an ATECC608A
-[00:00:02.117,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (94): Secure element serial number is: '012348ea3966ea9eee'
-[00:00:02.140,000] <inf> mender_stm32h745_zephyr_example: Mender client initialized
-[00:00:02.150,000] <inf> mender: CMAKE_SOURCE_DIR/src/mender-storage.c (179): Device configuration not available
-[00:00:02.163,000] <inf> mender_stm32h745_zephyr_example: Mender configure initialized
-[00:00:02.173,000] <inf> mender_stm32h745_zephyr_example: Mender inventory initialized
-[00:00:02.184,000] <inf> mender_stm32h745_zephyr_example: Device configuration retrieved
-[00:00:02.244,000] <inf> mender: CMAKE_SOURCE_DIR/src/mender-storage.c (113): OTA ID not available
-[00:00:03.593,000] <err> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-api.c (854): [401] Unauthorized: dev auth: unauthorized
-[00:00:03.609,000] <inf> mender_stm32h745_zephyr_example: Mender client authentication failed (1/3)
+[00:00:03.759,000] <inf> phy_mii: PHY (0) Link speed 100 Mb, full duplex
+
+[00:00:04.061,000] <inf> mender_stm32h745_zephyr_example: IPv4 address: 192.168.1.183
+[00:00:04.071,000] <inf> mender_stm32h745_zephyr_example: Lease time: 43200 seconds
+[00:00:04.081,000] <inf> mender_stm32h745_zephyr_example: Subnet: 255.255.255.0
+[00:00:04.091,000] <inf> mender_stm32h745_zephyr_example: Router: 192.168.1.1
+[00:00:04.105,000] <inf> mender_stm32h745_zephyr_example: MAC address of the device '00:80:e1:7c:10:70'
+[00:00:04.117,000] <inf> mender_stm32h745_zephyr_example: Running project 'mender-stm32h745-zephyr-example' version '0.1.0'
+[00:00:04.136,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (82): Secure element revision information: '00006002'
+[00:00:04.154,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (84): Secure element is an ATECC608A
+[00:00:04.177,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (94): Secure element serial number is: '012348ea3966ea9eee'
+[00:00:04.200,000] <inf> mender_stm32h745_zephyr_example: Mender client initialized
+[00:00:04.210,000] <inf> mender: CMAKE_SOURCE_DIR/src/mender-storage.c (157): Device configuration not available
+[00:00:04.223,000] <inf> mender_stm32h745_zephyr_example: Mender configure add-on registered
+[00:00:04.234,000] <inf> mender_stm32h745_zephyr_example: Mender inventory add-on registered
+[00:00:04.245,000] <inf> mender_stm32h745_zephyr_example: Device configuration retrieved
+[00:00:04.307,000] <inf> mender: CMAKE_SOURCE_DIR/src/mender-storage.c (102): Deployment data not available
+[00:00:04.319,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:00:07.590,000] <err> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-api.c (900): [401] Unauthorized: dev auth: unauthorized
+[00:00:07.606,000] <inf> mender_stm32h745_zephyr_example: Mender client authentication failed
+[00:00:07.617,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
 ```
 
 You now have to accept your device on the mender interface. Once it is accepted on the mender interface the following will be displayed:
 
 ```
-[00:01:03.485,000] <inf> mender_stm32h745_zephyr_example: Mender client authenticated
-[00:01:03.496,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/ota/zephyr/src/mender-ota.c (146): Application has been mark valid and rollback canceled
-[00:01:03.514,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (433): Checking for deployment...
-[00:01:04.756,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (441): No deployment available
+[00:10:04.256,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:10:07.632,000] <inf> mender_stm32h745_zephyr_example: Mender client authenticated
+[00:10:07.643,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (884): Checking for deployment...
+[00:10:10.305,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (892): No deployment available
+[00:10:10.320,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
+[00:10:10.330,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:10:12.966,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
+[00:10:12.977,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:10:15.621,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
+
 ```
 
 Congratulation! Your device is connected to the mender server. Device type is `mender-stm32h745-zephyr-example` and the current software version is displayed.
@@ -120,7 +130,7 @@ Congratulation! Your device is connected to the mender server. Device type is `m
 
 First retrieve [mender-artifact](https://docs.mender.io/downloads#mender-artifact) tool.
 
-Change `VERSION.txt` file to `0.2`, rebuild and sign the firmware using the following commands. We previously used `hex` file because it is required to flash the device, but we now use `bin` file that is required for the mender-mcu-client:
+Change `VERSION` file to `VERSION_MAJOR=0` and `VERSION_MINOR=2`, rebuild and sign the firmware using the following commands. We previously used `hex` file because it is required to flash the device, but we now use `bin` file that is required for the mender-mcu-client:
 
 ```
 west build -b nucleo_h745zi_q/stm32h745xx/m7 path/to/mender-stm32h745-zephyr-example
@@ -129,53 +139,64 @@ west build -b nucleo_h745zi_q/stm32h745xx/m7 path/to/mender-stm32h745-zephyr-exa
 Then create a new artifact using the following command line:
 
 ```
-path/to/mender-artifact write rootfs-image --compression none --device-type mender-stm32h745-zephyr-example --artifact-name mender-stm32h745-zephyr-example-v$(head -n1 path/to/mender-stm32h745-zephyr-example/VERSION.txt) --output-path build/zephyr/mender-stm32h745-zephyr-example-v$(head -n1 path/to/mender-stm32h745-zephyr-example/VERSION.txt).mender --file build/zephyr/zephyr.signed.bin
+path/to/mender-artifact write rootfs-image --compression none --device-type mender-stm32h745-zephyr-example --artifact-name mender-stm32h745-zephyr-example-v0.2.0 --output-path build/zephyr/mender-stm32h745-zephyr-example-v0.2.0.mender --file build/zephyr/zephyr.signed.bin
 ```
 
-Upload the artifact `mender-stm32h745-zephyr-example-v0.2.mender` to the mender server and create a new deployment.
+Upload the artifact `mender-stm32h745-zephyr-example-v0.2.0.mender` to the mender server and create a new deployment.
 
 The device checks for the new deployment, downloads the artifact and installs it on the `slot1_partition`. Then it reboots to apply the update:
 
 ```
-[00:05:02.140,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (433): Checking for deployment...
-[00:05:03.425,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (453): Downloading deployment artifact with id 'ef70bb87-58ad-4699-a377-c4d7a66afbe7', artifact na-
-[00:05:04.720,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'downloading'
-[00:05:07.210,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-artifact.c (380): Artifact has valid version
-[00:05:07.225,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/ota/zephyr/src/mender-ota.c (42): Start flashing OTA artifact 'zephyr.signed.bin' with size 393216
-[00:05:31.034,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (463): Download done, installing artifact
-[00:05:32.285,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'installing'
-[00:05:32.348,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'rebooting'
-[00:05:32.428,000] <inf> mender_stm32h745_zephyr_example: Restarting system
-uart:~$ ** Booting Zephyr OS build zephyr-v3.4.0 ***
+[00:10:04.249,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:10:04.260,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (884): Checking for deployment...
+[00:10:06.502,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (918): Downloading deployment artifact with id '0ecb3633-f53e-45a8-9bac-930e7f47dbd9', artifact name 'mender-stm32h745-zephyr-example-v0.2.0' and uri 'https://hosted-mender-artifacts.s3.amazonaws.com/6370b06a7f0deaedb279fb6a/d11d9097-a6e9-4cb1-92be-b474e6a51524?
+[00:10:08.566,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'downloading'
+[00:10:11.106,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-artifact.c (382): Artifact has valid version
+[00:10:12.008,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/flash/zephyr/src/mender-flash.c (42): Start flashing artifact 'zephyr.signed.bin' with size 303472
+[00:10:30.073,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (930): Download done, installing artifact
+[00:10:32.066,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'installing'
+[00:10:34.096,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'rebooting'
+[00:10:34.107,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
+[00:10:34.118,000] <inf> mender_stm32h745_zephyr_example: Restarting system
+uart:~$ ooting MCUboot v2.1.0-rc1-36-gfb2cf0ec3da3 ***
+*** Using Zephyr OS build v3.7.0-rc2-417-g1e20f58c17c1 ***
 I: Starting bootloader
-I: Primary image: magic=good, swap_type=0x1, copy_done=0x3, image_ok=0x1
-I: Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+I: Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+I: Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x1
 I: Boot source: primary slot
 I: Image index: 0, Swap type: test
 I: Starting swap using scratch algorithm.
 I: Bootloader chainload address offset: 0x20000
 I: Jumping to the first image slot
 
-*** Booting Zephyr OS build zephyr-v3.4.0 ***
-[00:00:00.503,000] <inf> mender_stm32h745_zephyr_example: Your address: 192.168.1.183
-[00:00:00.513,000] <inf> mender_stm32h745_zephyr_example: Lease time: 43200 seconds
-[00:00:00.523,000] <inf> mender_stm32h745_zephyr_example: Subnet: 255.255.255.0
-[00:00:00.533,000] <inf> mender_stm32h745_zephyr_example: Router: 192.168.1.1
-[00:00:00.547,000] <inf> mender_stm32h745_zephyr_example: MAC address of the device '00:80:e1:7c:10:70'
-[00:00:00.559,000] <inf> mender_stm32h745_zephyr_example: Running project 'mender-stm32h745-zephyr-example' version '0.2'
-[00:00:00.576,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (82): Secure element revision information: '00006002'
-[00:00:00.595,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (84): Secure element is an ATECC608A
-[00:00:00.616,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (94): Secure element serial number is: '012348ea3966ea9eee'
-[00:00:00.639,000] <inf> mender_stm32h745_zephyr_example: Mender client initialized
-[00:00:00.649,000] <inf> mender: CMAKE_SOURCE_DIR/src/mender-storage.c (179): Device configuration not available
-[00:00:00.662,000] <inf> mender_stm32h745_zephyr_example: Mender configure initialized
-[00:00:00.673,000] <inf> mender_stm32h745_zephyr_example: Mender inventory initialized
-[00:00:00.683,000] <inf> mender_stm32h745_zephyr_example: Device configuration retrieved
-[00:00:02.061,000] <inf> mender_stm32h745_zephyr_example: Mender client authenticated
-[00:00:02.071,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/ota/zephyr/src/mender-ota.c (146): Application has been mark valid and rollback canceled
-[00:00:03.332,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'success'
-[00:00:03.343,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (433): Checking for deployment...
-[00:00:04.617,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (441): No deployment available
+
+[00:00:03.654,000] <inf> phy_mii: PHY (0) Link speed 100 Mb, full duplex
+
+[00:00:03.705,000] <inf> mender_stm32h745_zephyr_example: IPv4 address: 192.168.1.183
+[00:00:03.716,000] <inf> mender_stm32h745_zephyr_example: Lease time: 43200 seconds
+[00:00:03.726,000] <inf> mender_stm32h745_zephyr_example: Subnet: 255.255.255.0
+[00:00:03.736,000] <inf> mender_stm32h745_zephyr_example: Router: 192.168.1.1
+[00:00:03.750,000] <inf> mender_stm32h745_zephyr_example: MAC address of the device '00:80:e1:7c:10:70'
+[00:00:03.762,000] <inf> mender_stm32h745_zephyr_example: Running project 'mender-stm32h745-zephyr-example' version '0.2.0'
+[00:00:03.780,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (82): Secure element revision information: '00006002'
+[00:00:03.799,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (84): Secure element is an ATECC608A
+[00:00:03.821,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/tls/generic/cryptoauthlib/src/mender-tls.c (94): Secure element serial number is: '012348ea3966ea9eee'
+[00:00:03.844,000] <inf> mender_stm32h745_zephyr_example: Mender client initialized
+[00:00:03.854,000] <inf> mender: CMAKE_SOURCE_DIR/src/mender-storage.c (159): Device configuration not available
+[00:00:03.867,000] <inf> mender_stm32h745_zephyr_example: Mender configure add-on registered
+[00:00:03.878,000] <inf> mender_stm32h745_zephyr_example: Mender inventory add-on registered
+[00:00:03.889,000] <inf> mender_stm32h745_zephyr_example: Device configuration retrieved
+[00:00:03.951,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:00:06.144,000] <inf> mender_stm32h745_zephyr_example: Mender client authenticated
+[00:00:06.155,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/platform/flash/zephyr/src/mender-flash.c (146): Application has been mark valid and rollback canceled
+[00:00:08.286,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'success'
+[00:00:08.296,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (884): Checking for deployment...
+[00:00:10.308,000] <inf> mender: CMAKE_SOURCE_DIR/components/mender-mcu-client/core/src/mender-client.c (892): No deployment available
+[00:00:10.322,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
+[00:00:10.333,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:00:12.303,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
+[00:00:12.314,000] <inf> mender_stm32h745_zephyr_example: Mender client connect network
+[00:00:14.296,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
 ```
 
 Congratulation! You have updated the device. Mender server displays the success of the deployment.
@@ -202,7 +223,7 @@ What remains important is that partitions are aligned on sectors. Moreover `slot
 
 NVS module from Zephyr requires sectors to be 64KB or less in size, which is not compatible with the STM32H745ZI MCU. Moreover it requires at least 3 sectors.
 
-In the current example, authentication keys are not saved in the mender storage area because they are managed by the ATECC608 secure element. Instead, only ID and artifact name are used when an update is done, and device configuration if it is defined.
+In the current example, authentication keys are not saved in the mender storage area because they are managed by the ATECC608 secure element. Instead, only deployment data is used when an update is done, and device configuration if it is defined.
 
 Implementation has been done using the backup sram available in the STM32H745ZI MCU. Because this is specific and not supported by the mender-mcu-client, `CONFIG_MENDER_PLATFORM_STORAGE_TYPE_WEAK` has been defined and project specific implementation has been done. See `src/mender-storage.c` for more information.
 
