@@ -318,13 +318,13 @@ main(void) {
     /* Initialize mender-client */
     mender_keystore_t         identity[]              = { { .name = "mac", .value = mac_address }, { .name = NULL, .value = NULL } };
     mender_client_config_t    mender_client_config    = { .identity                     = identity,
-                                                    .artifact_name                = artifact_name,
-                                                    .device_type                  = device_type,
-                                                    .host                         = NULL,
-                                                    .tenant_token                 = NULL,
-                                                    .authentication_poll_interval = 0,
-                                                    .update_poll_interval         = 0,
-                                                    .recommissioning              = false };
+                                                          .artifact_name                = artifact_name,
+                                                          .device_type                  = device_type,
+                                                          .host                         = NULL,
+                                                          .tenant_token                 = NULL,
+                                                          .authentication_poll_interval = 0,
+                                                          .update_poll_interval         = 0,
+                                                          .recommissioning              = false };
     mender_client_callbacks_t mender_client_callbacks = { .network_connect        = network_connect_cb,
                                                           .network_release        = network_release_cb,
                                                           .authentication_success = authentication_success_cb,
