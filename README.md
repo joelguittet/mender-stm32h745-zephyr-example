@@ -13,7 +13,7 @@ This project is used with a [NUCLEO-H745ZI-Q](https://www.st.com/en/evaluation-t
 
 ![NUCLEO-H745ZI-Q and ATECC608 wiring](https://raw.githubusercontent.com/joelguittet/mender-stm32h745-zephyr-example/master/.github/docs/wiring.png)
 
-The project is built using Zephyr RTOS v3.4.0 and Zephyr SDK >= v0.16.0. It depends on [cJSON](https://github.com/DaveGamble/cJSON) and a specific fork of [Microchip cryptoauthlib](https://github.com/joelguittet/cryptoauthlib) that support Zephyr integration. There is no other dependencies.
+The project is built using Zephyr RTOS v3.7.0 and Zephyr SDK >= v0.16.0. It depends on [cJSON](https://github.com/DaveGamble/cJSON) and a specific fork of [Microchip cryptoauthlib](https://github.com/joelguittet/cryptoauthlib) that support Zephyr integration. There is no other dependencies.
 
 To start using Mender, we recommend that you begin with the Getting started section in [the Mender documentation](https://docs.mender.io).
 
@@ -76,7 +76,7 @@ After flashing the application on the NUCLEO-H745ZI-Q evaluation board and displ
 
 ```
 *** Booting MCUboot v2.1.0-rc1-36-gfb2cf0ec3da3 ***
-*** Using Zephyr OS build v3.7.0-rc2-417-g1e20f58c17c1 ***
+*** Using Zephyr OS build v3.7.0 ***
 I: Starting bootloader
 I: Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
 I: Scratch: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
@@ -158,8 +158,8 @@ The device checks for the new deployment, downloads the artifact and installs it
 [00:10:34.096,000] <inf> mender_stm32h745_zephyr_example: Deployment status is 'rebooting'
 [00:10:34.107,000] <inf> mender_stm32h745_zephyr_example: Mender client released network
 [00:10:34.118,000] <inf> mender_stm32h745_zephyr_example: Restarting system
-uart:~$ ooting MCUboot v2.1.0-rc1-36-gfb2cf0ec3da3 ***
-*** Using Zephyr OS build v3.7.0-rc2-417-g1e20f58c17c1 ***
+uart:~$ *** Booting MCUboot v2.1.0-rc1-36-gfb2cf0ec3da3 ***
+*** Using Zephyr OS build v3.7.0 ***
 I: Starting bootloader
 I: Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
 I: Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x1
