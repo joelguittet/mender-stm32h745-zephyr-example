@@ -345,9 +345,12 @@ main(void) {
     LOG_INF("Mender inventory add-on registered");
 #endif /* CONFIG_MENDER_CLIENT_ADD_ON_INVENTORY */
 #ifdef CONFIG_MENDER_CLIENT_ADD_ON_TROUBLESHOOT
-    mender_troubleshoot_config_t    mender_troubleshoot_config = { .healthcheck_interval = 0 };
-    mender_troubleshoot_callbacks_t mender_troubleshoot_callbacks
-        = { .shell_begin = shell_begin_cb, .shell_resize = shell_resize_cb, .shell_write = shell_write_cb, .shell_end = shell_end_cb };
+    mender_troubleshoot_config_t    mender_troubleshoot_config    = { .healthcheck_interval = 0 };
+    mender_troubleshoot_callbacks_t mender_troubleshoot_callbacks = {
+#ifdef CONFIG_MENDER_CLIENT_TROUBLESHOOT_SHELL
+        .shell = { .open = mender_shell_open, .resize = mender_shell_resize, .write = mender_shell_write, .close = mender_shell_close }
+#endif /* CONFIG_MENDER_CLIENT_TROUBLESHOOT_SHELL */
+    };
     assert(MENDER_OK
            == mender_client_register_addon(
                (mender_addon_instance_t *)&mender_troubleshoot_addon_instance, (void *)&mender_troubleshoot_config, (void *)&mender_troubleshoot_callbacks));

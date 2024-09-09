@@ -13,7 +13,7 @@ This project is used with a [NUCLEO-H745ZI-Q](https://www.st.com/en/evaluation-t
 
 ![NUCLEO-H745ZI-Q and ATECC608 wiring](https://raw.githubusercontent.com/joelguittet/mender-stm32h745-zephyr-example/master/.github/docs/wiring.png)
 
-The project is built using Zephyr RTOS v3.7.0 and Zephyr SDK >= v0.16.0. It depends on [cJSON](https://github.com/DaveGamble/cJSON) and a specific fork of [Microchip cryptoauthlib](https://github.com/joelguittet/cryptoauthlib) that support Zephyr integration. There is no other dependencies.
+The project is built using Zephyr RTOS v3.7.x (v3.7-branch) and Zephyr SDK >= v0.16.0. It depends on [cJSON](https://github.com/DaveGamble/cJSON) and a specific fork of [Microchip cryptoauthlib](https://github.com/joelguittet/cryptoauthlib) that support Zephyr integration. There is no other dependencies.
 
 To start using Mender, we recommend that you begin with the Getting started section in [the Mender documentation](https://docs.mender.io).
 
@@ -47,6 +47,7 @@ In order to get the Device Troubleshoot add-on working, the following configurat
 
 ```
 CONFIG_HEAP_MEM_POOL_SIZE=1500
+CONFIG_ZVFS_OPEN_MAX=16
 CONFIG_SHELL_BACKEND_SERIAL=n
 CONFIG_SHELL_AUTOSTART=n
 CONFIG_SHELL_STACK_SIZE=3072
@@ -205,6 +206,10 @@ Congratulation! You have updated the device. Mender server displays the success 
 
 In case of failure to connect and authenticate to the server the current example application performs a rollback to the previous release.
 You can customize the behavior of the example application to add your own checks and perform the rollback in case the tests fail.
+
+### Using Device Troubleshoot add-on
+
+The Device Troubleshoot add-on permits to display the Zephyr Shell on the Mender interface. Autocompletion and colors are available.
 
 ### Using an other zephyr evaluation board
 
