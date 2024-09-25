@@ -347,6 +347,12 @@ main(void) {
 #ifdef CONFIG_MENDER_CLIENT_ADD_ON_TROUBLESHOOT
     mender_troubleshoot_config_t    mender_troubleshoot_config    = { .healthcheck_interval = 0 };
     mender_troubleshoot_callbacks_t mender_troubleshoot_callbacks = {
+#ifdef CONFIG_MENDER_CLIENT_TROUBLESHOOT_FILE_TRANSFER
+        .file_transfer = { .stat = NULL, .open = NULL, .read = NULL, .write = NULL, .close = NULL },
+#ifdef CONFIG_MENDER_CLIENT_TROUBLESHOOT_PORT_FORWARDING
+        .port_forwarding = { .connect = NULL, .send = NULL, .close = NULL },
+#endif /* CONFIG_MENDER_CLIENT_TROUBLESHOOT_PORT_FORWARDING */
+#endif /* CONFIG_MENDER_CLIENT_TROUBLESHOOT_FILE_TRANSFER */
 #ifdef CONFIG_MENDER_CLIENT_TROUBLESHOOT_SHELL
         .shell = { .open = mender_shell_open, .resize = mender_shell_resize, .write = mender_shell_write, .close = mender_shell_close }
 #endif /* CONFIG_MENDER_CLIENT_TROUBLESHOOT_SHELL */
