@@ -1,6 +1,6 @@
 # mender-stm32h745-zephyr-example
 
-[![Workflow check-code-format Badge](https://github.com/joelguittet/mender-stm32h745-zephyr-example/workflows/ci/badge.svg)](https://github.com/joelguittet/mender-stm32h745-zephyr-example/actions)
+[![Workflow check-code-format Badge](https://github.com/joelguittet/mender-stm32h745-zephyr-example/workflows/check-code-format/badge.svg)](https://github.com/joelguittet/mender-stm32h745-zephyr-example/actions)
 [![Issues Badge](https://img.shields.io/github/issues/joelguittet/mender-stm32h745-zephyr-example)](https://github.com/joelguittet/mender-stm32h745-zephyr-example/issues)
 [![License Badge](https://img.shields.io/github/license/joelguittet/mender-stm32h745-zephyr-example)](https://github.com/joelguittet/mender-stm32h745-zephyr-example/blob/master/LICENSE)
 
